@@ -36,6 +36,7 @@ class NotificationViewController: UIViewController, NotificationViewDelegate {
     statusBarView.delegate = self
     statusBarView.panGestureRecognizer.addTarget(self, action: #selector(panGestureRecognized(_:)))
     statusBarView.longPressGestureRecognizer.addTarget(self, action: #selector(longPressGestureRecognized(_:)))
+      statusBarView.tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognized(_:)))
 
   }
 
@@ -133,6 +134,17 @@ class NotificationViewController: UIViewController, NotificationViewDelegate {
     case .pill: return true
     }
   }
+    
+    @objc private func tapGestureRecognized(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.isEnabled else { return }
+        
+        switch recognizer.state {
+        case .ended:
+            dismiss(withDuration: 0.4, completion: nil)
+        default:
+            dismiss(withDuration: 0.4, completion: nil)
+        }
+    }
 
   @objc private func panGestureRecognized(_ recognizer: UIPanGestureRecognizer) {
     guard recognizer.isEnabled else { return }
@@ -237,7 +249,7 @@ class NotificationViewController: UIViewController, NotificationViewDelegate {
 
     // Prevent dismissal during interaction
     if isGestureRecognizerActive(statusBarView.longPressGestureRecognizer)
-      || isGestureRecognizerActive(statusBarView.panGestureRecognizer)
+        || isGestureRecognizerActive(statusBarView.panGestureRecognizer) || isGestureRecognizerActive(statusBarView.tapGestureRecognizer)
     {
       return false
     }

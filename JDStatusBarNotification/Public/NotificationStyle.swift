@@ -263,7 +263,7 @@ public class StatusBarNotificationTextStyle: NSObject {
 @objc(JDStatusBarNotificationPillStyle)
 public class StatusBarNotificationPillStyle: NSObject {
     /// The height of the pill. Default is `50.0`.
-    @objc public var height: Double = 50.0
+    @objc public var height: Double = 65.0
 
     /// The spacing between the pill and the statusbar or top of the screen.. Default is `0.0`.
     @objc public var topSpacing: Double = 0.0
@@ -279,7 +279,7 @@ public class StatusBarNotificationPillStyle: NSObject {
     @objc public var borderWidth: Double = 2.0
 
     /// The shadow color of the pill shadow. The default is `nil`, meaning no shadow.
-    @objc public var shadowColor: UIColor? = nil
+    @objc public var shadowColor: UIColor? = UIColor.black
 
     /// The shadow radius of the pill shadow. The default is `4.0`.
     @objc public var shadowRadius: Double = 4.0
@@ -303,11 +303,12 @@ public class StatusBarNotificationBackgroundStyle: NSObject {
     @objc public var backgroundColor: UIColor? = UIColor { traitCollection in
         switch traitCollection.userInterfaceStyle {
         case .dark:
-            return UIColor(red: 0.050, green: 0.078, blue: 0.120, alpha: 1.000)
+            //return UIColor(red: 0.050, green: 0.078, blue: 0.120, alpha: 1.000)
+            return UIColor.clear
         case .unspecified, .light:
             fallthrough
         @unknown default:
-            return UIColor.white
+            return UIColor.clear
         }
     }
 

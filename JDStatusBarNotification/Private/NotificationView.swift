@@ -13,6 +13,7 @@ class NotificationView: UIView, UIGestureRecognizerDelegate, StylableView {
 
   let longPressGestureRecognizer = UILongPressGestureRecognizer()
   let panGestureRecognizer = UIPanGestureRecognizer()
+    let tapGestureRecognizer = UITapGestureRecognizer()
 
   // Private
   let expectedSubviewTag = 12321
@@ -68,6 +69,10 @@ class NotificationView: UIView, UIGestureRecognizerDelegate, StylableView {
     panGestureRecognizer.isEnabled = true
     panGestureRecognizer.delegate = self
     addGestureRecognizer(panGestureRecognizer)
+      
+      tapGestureRecognizer.isEnabled = true
+      tapGestureRecognizer.delegate = self
+      addGestureRecognizer(tapGestureRecognizer)
   }
 
   private func resetSubviews() {
@@ -100,6 +105,7 @@ class NotificationView: UIView, UIGestureRecognizerDelegate, StylableView {
     // Ensure gesture recognizers are added
     addGestureRecognizer(longPressGestureRecognizer)
     addGestureRecognizer(panGestureRecognizer)
+      addGestureRecognizer(tapGestureRecognizer)
   }
 
   // MARK: - Activity Indicator
@@ -368,7 +374,7 @@ class NotificationView: UIView, UIGestureRecognizerDelegate, StylableView {
   func contentRectForViewMinusSafeAreaInsets() -> CGRect {
     let topLayoutMargins = self.window?.safeAreaInsets.top ?? 0.0
     let height = self.bounds.size.height - topLayoutMargins
-    let rect = CGRect(x: 0, y: topLayoutMargins, width: self.bounds.size.width, height: height)
+    let rect = CGRect(x: 0, y: topLayoutMargins + 15, width: self.bounds.size.width, height: height)
 
     switch style.backgroundStyle.backgroundType {
       case .fullWidth:
@@ -384,7 +390,7 @@ class NotificationView: UIView, UIGestureRecognizerDelegate, StylableView {
   }
 
   func roundRectMaskForRectAndRadius(_ rect: CGRect) -> CALayer {
-    let roundedRectPath = UIBezierPath(roundedRect: rect, cornerRadius: rect.size.height / 2.0)
+    let roundedRectPath = UIBezierPath(roundedRect: rect, cornerRadius: 8)
     let maskLayer = CAShapeLayer()
     maskLayer.path = roundedRectPath.cgPath
     return maskLayer
@@ -429,7 +435,7 @@ class NotificationView: UIView, UIGestureRecognizerDelegate, StylableView {
       pillView.frame = contentView.bounds
 
       // Setup rounded corners (not using a mask layer, so that we can use shadows on this view)
-      pillView.layer.cornerRadius = round(pillView.frame.size.height / 2.0)
+      pillView.layer.cornerRadius = 8
       pillView.layer.cornerCurve = .continuous
       pillView.layer.allowsEdgeAntialiasing = true
     }
