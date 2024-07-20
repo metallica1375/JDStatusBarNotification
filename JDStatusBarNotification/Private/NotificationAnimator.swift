@@ -91,7 +91,7 @@ class JDSBNotificationAnimator: NSObject, CAAnimationDelegate {
       if view.style.animationType == .fade {
         view.alpha = 0.0
       } else {
-        view.transform = CGAffineTransform(translationX: 0, y: -view.bounds.height)
+        view.transform = CGAffineTransform(translationX: 0, y: -view.bounds.height - 25)
       }
     }) { finished in
       if finished, let completion {
